@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLADE MODS FUCK BY MDX</title>
+    <style>
+        /* Basic styles for the popup */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .popup-box {
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent */
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            width: 280px;
+        }
+
+        .popup-box h3 {
+            color: #FF00FF;
+            margin-bottom: 15px;
+        }
+
+        .popup-box button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            background-color: rgba(10, 10, 10, 0.2); /* Semi-transparent */
+            color: #FF00FF;
+            border: 2px solid #FF00FF;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup-box button:hover {
+            color: #0a0a0a;
+            background-color: #FF00FF;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 30px rgba(255, 0, 255, 0.8);
+        }
+
+        /* Particle.js background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Behind content but above the background */
+        }
+
+        /* Background image */
+        #backgroundImage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0; /* Behind everything */
+            opacity: 0.4; /* Slight transparency */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+            background: #000000;
+            color: #FF00FF;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Blinking background animation */
+        @keyframes blink-background {
+            0%, 100% {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+            50% {
+                background-color: rgba(0, 0, 0, 0.6);
+            }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            background: rgba(10, 10, 10, 0.2); /* Semi-transparent */
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: blink-background 2s infinite;
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .login-container::before,
+        .login-container::after {
+            content: "";
+            position: absolute;
+            background: linear-gradient(145deg, #FF00FF, #8B008B);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .login-container::before {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .login-container::after {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .logo {
+            margin-bottom: 15px;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #FF00FF;
+            padding: 5px;
+        }
+
+        .server-status {
+            font-size: 14px;
+            color: #FF00FF;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid #FF00FF;
+            box-sizing: border-box;
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FF00FF }
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            width: 85%;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #FF00FF;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 6.8px;
+            border: 2px solid #FF00FF;
+            border-radius: 10px;
+            background-color: rgba(10, 10, 10, 0.8); /* Semi-transparent */
+            color: #FF00FF;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            position: relative;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                opacity: 0.1;
+            }
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .login-button, .get-key-button {
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background-color: rgba(10, 10, 10, 0.8); /* Semi-transparent */
+            color: #FF00FF;
+            border: 2px solid #FF00FF;
+            border-radius: 50px;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+            animation: flicker-buttons 3s infinite;
+            position: relative;
+        }
+
+        @keyframes flicker-buttons {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                box-shadow: 0 0 10px rgba(255, 0, 255, 0.7), 0 0 20px rgba(255, 0, 255, 0.5);
+            }
+            20%, 24%, 56% {
+                box-shadow: none;
+            }
+        }
+
+        .login-button:hover, .get-key-button:hover {
+            color: #0a0a0a;
+            background-color: #FF00FF;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 30px rgba(255, 0, 255, 0.8);
+        }
+
+        @media only screen and (max-width: 600px) {
+            body {
+                background-color: #000;
+            }
+
+            .login-container {
+                max-width: 90%;
+            }
+        }
+
+        .error-message {
+            background-color: rgba(255, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 300px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+
+    <!-- Include ParticleJS -->
+    <script src="js/particles.min.js"></script>
+    <!-- Include FingerprintJS for device fingerprinting -->
+    <script src="js/fp.min.js"></script>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="css/all.min.css">
+</head>
+<body>
+    <!-- Background image -->
+    <img id="backgroundImage" src="images/bladebg.jpg" alt="Background">
+
+    <div id="particles-js"></div>
+    <div class="login-container">
+        <div class="logo">
+            <img src="images/blade.png" alt="Logo">
+            <h4>BLADE PRIVATE SERVER</h4>
+        </div>
+        <div class="server-status">MOD FUCK BY MDX HACKER</div>
+        <form action="game.html" method="POST" class="form-container">
+            <div class="input-group">
+                <label for="license_key">License Key</label>
+                <input type="text" id="license_key" name="license_key" required="">
+            </div>
+
+            <!-- Hidden field to store device info -->
+            <input type="hidden" id="device_info" name="device_info">
+
+            <div class="button-group">
+                <button type="submit" class="login-button">LOGIN</button>
+                <button type="button" class="get-key-button" onclick="redirectToTelegram()">GET KEY</button>
+            </div>
+        </form>
+
+        <!-- Display error message if any -->
+            </div>
+
+    <script>
+        function redirectToTelegram() {
+            window.location.href = "https://t.me/mdxhacker";
+        }
+
+        // Capture device fingerprint and additional info (screen size, user-agent)
+        async function getFingerprint() {
+            const fp = await FingerprintJS.load();
+            const result = await fp.get();
+            
+            // Capture screen size and user-agent for additional consistency
+            const screenSize = screen.width + 'x' + screen.height;
+            const userAgent = navigator.userAgent;
+
+            // Combine visitorId (FingerprintJS) with screen size and user-agent
+            const deviceInfo = result.visitorId + '|' + screenSize + '|' + userAgent;
+
+            // Set device info value in hidden input field
+            document.getElementById('device_info').value = deviceInfo;
+        }
+
+        // Call the function on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            getFingerprint();
+        });
+
+        // Initialize Particle.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#FF00FF'
+                },
+                shape: {
+                    type: 'circle',
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    },
+                    polygon: {
+                        nb_sides: 5
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false,
+                        speed: 1,
+                        opacity_min: 1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 40,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#FF00FF',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 400,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
+
+
+</body></html>
